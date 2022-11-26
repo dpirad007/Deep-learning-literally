@@ -37,6 +37,15 @@ class Atom:
     def __radd__(self, other):  # other + self
         return self + other
 
+    def __neg__(self):
+        return self * -1
+
+    def __sub__(self, other):
+        return self + (-other)
+
+    def __rsub__(self, other):
+        return other + (-self)
+
     def __mul__(self, other):
 
         other = other if isinstance(other, Atom) else Atom(other)
@@ -57,6 +66,20 @@ class Atom:
 
     def __rmul__(self, other):  # other * self
         return self * other
+
+    def exp(self):
+        t = math.exp(self.data)
+        o = Atom(t, (self,), "exp")
+
+        def backward():
+            print("exp backward invoked")
+            print(f"Self: {self}, o: {o}")
+            self.grad += t * o.grad
+            print(
+                f"self.grad: {self.grad}, o.grad: {o.grad}")
+
+        o._backward = backward
+        return o
 
     def tanh(self):
         n = self.data

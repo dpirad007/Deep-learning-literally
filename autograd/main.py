@@ -43,8 +43,7 @@ from ion import *
 
 # graph(o).view()
 
-a = Atom(5.0)
+a = Atom(10.0)
 
-print(1+a)
-
-print(5*a)
+print(a-15)
+print(a.exp())
