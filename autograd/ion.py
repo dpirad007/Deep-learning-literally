@@ -40,6 +40,16 @@ class Atom:
     def __neg__(self):
         return self * -1
 
+    def __pow__(self, other):
+        assert isinstance(other, (int, float))
+        o = Atom(self.data ** other, (self,), f"**{other}")
+
+        def backward():
+            self.grad += (other*(self.data**(other-1))) * o.grad
+        o._backward = backward
+
+        return o
+
     def __sub__(self, other):
         return self + (-other)
 
@@ -66,6 +76,12 @@ class Atom:
 
     def __rmul__(self, other):  # other * self
         return self * other
+
+    def __truediv__(self, other):
+        return self*(other**-1)
+
+    def __rtruediv__(self, other):
+        return other*(self**-1)
 
     def exp(self):
         t = math.exp(self.data)

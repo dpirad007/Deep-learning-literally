@@ -44,6 +44,6 @@ from ion import *
 # graph(o).view()
 
 a = Atom(10.0)
+b = Atom(20.0)
 
-print(a-15)
-print(a.exp())
+print(a**1)
