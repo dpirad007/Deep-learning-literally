@@ -18,6 +18,8 @@ class Atom:
         return f"Atom(data={self.data})"
 
     def __add__(self, other):
+
+        other = other if isinstance(other, Atom) else Atom(other)
         o = Atom(self.data + other.data, (self, other), "+")
 
         def backward():
@@ -32,7 +34,12 @@ class Atom:
 
         return o
 
+    def __radd__(self, other):  # other + self
+        return self + other
+
     def __mul__(self, other):
+
+        other = other if isinstance(other, Atom) else Atom(other)
         o = Atom(self.data * other.data, (self, other), "*")
 
         def backward():
@@ -47,6 +54,9 @@ class Atom:
         o._backward = backward
 
         return o
+
+    def __rmul__(self, other):  # other * self
+        return self * other
 
     def tanh(self):
         n = self.data
