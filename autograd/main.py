@@ -1,10 +1,10 @@
 from ion import *
-from nn import Neuron
+from nn import *
 
 # neural network
 
 x = [2.0, 3.0]
-n = Neuron(2)
+n = Layer(2, 3)
 print(n(x))
 
 
