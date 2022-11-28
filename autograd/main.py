@@ -1,4 +1,12 @@
 from ion import *
+from nn import Neuron
+
+# neural network
+
+x = [2.0, 3.0]
+n = Neuron(2)
+print(n(x))
+
 
 # simple example
 
@@ -36,14 +44,11 @@ from ion import *
 # n = x1w1x2w2 + b
 # n.label = "n"
 
-# o = n.tanh()
-# o.label = "tanh"
+
+# e = (2*n).exp()  # brackets are very important ...arghhhhh
+# o = (e-1)/(e+1)
+# o.label = "o"
 
 # o.backward()
 
 # graph(o).view()
-
-a = Atom(10.0)
-b = Atom(20.0)
-
-print(a**1)
