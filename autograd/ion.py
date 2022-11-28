@@ -21,12 +21,12 @@ class Atom:
         o = Atom(self.data + other.data, (self, other), "+")
 
         def backward():
-            print("__add__ backward invoked")
-            print(f"Self: {self}, other: {other}, o: {o}")
+            # print("__add__ backward invoked")
+            # print(f"Self: {self}, other: {other}, o: {o}")
             self.grad += 1.0 * o.grad
             other.grad += 1.0 * o.grad
-            print(
-                f"self.grad: {self.grad}, other.grad: {other.grad}, o.grad: {o.grad}")
+            # print(
+            #     f"self.grad: {self.grad}, other.grad: {other.grad}, o.grad: {o.grad}")
 
         o._backward = backward
 
@@ -60,13 +60,13 @@ class Atom:
         o = Atom(self.data * other.data, (self, other), "*")
 
         def backward():
-            print("__mul__ backward invoked")
-            print(f"Self: {self}, other: {other}, o: {o}")
+            # print("__mul__ backward invoked")
+            # print(f"Self: {self}, other: {other}, o: {o}")
 
             self.grad += other.data * o.grad
             other.grad += self.data * o.grad
-            print(
-                f"self.grad: {self.grad}, other.grad: {other.grad}, o.grad: {o.grad}")
+            # print(
+            #     f"self.grad: {self.grad}, other.grad: {other.grad}, o.grad: {o.grad}")
 
         o._backward = backward
 
@@ -86,11 +86,11 @@ class Atom:
         o = Atom(t, (self,), "exp")
 
         def backward():
-            print("exp backward invoked")
-            print(f"Self: {self}, o: {o}")
+            # print("exp backward invoked")
+            # print(f"Self: {self}, o: {o}")
             self.grad += t * o.grad
-            print(
-                f"self.grad: {self.grad}, o.grad: {o.grad}")
+            # print(
+            #     f"self.grad: {self.grad}, o.grad: {o.grad}")
 
         o._backward = backward
         return o
@@ -101,11 +101,11 @@ class Atom:
         o = Atom(t, (self,), "tanh")
 
         def backward():
-            print("tanh backward invoked")
-            print(f"Self: {self}, o: {o}")
+            # print("tanh backward invoked")
+            # print(f"Self: {self}, o: {o}")
             self.grad += (1 - t**2) * o.grad
-            print(
-                f"self.grad: {self.grad}, o.grad: {o.grad}")
+            # print(
+            #     f"self.grad: {self.grad}, o.grad: {o.grad}")
 
         o._backward = backward
         return o

@@ -13,6 +13,9 @@ class Neuron:
         o = act.tanh()
         return o
 
+    def parameters(self):
+        return self.w + [self.b]
+
 
 class Layer:
 
@@ -22,6 +25,9 @@ class Layer:
     def __call__(self, x):
         o = [n(x) for n in self.neurons]
         return o[0] if len(o) == 1 else o
+
+    def parameters(self):
+        return [param for neuron in self.neurons for param in neuron.parameters()]
 
 
 class MLP:
@@ -35,3 +41,6 @@ class MLP:
         for layer in self.layers:
             o = layer(x)
         return o
+
+    def parameters(self):
+        return [param for layer in self.layers for param in layer.parameters()]
