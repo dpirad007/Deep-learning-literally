@@ -10,8 +10,8 @@ class Neuron:
 
     def __call__(self, x):
         act = sum([wi*xi for wi, xi in zip(self.w, x)]) + self.b
-        out = act.tanh()
-        return out
+        o = act.tanh()
+        return o
 
 
 class Layer:
@@ -20,5 +20,18 @@ class Layer:
         self.neurons = [Neuron(nin) for _ in range(nout)]
 
     def __call__(self, x):
-        out = [n(x) for n in self.neurons]
-        return out
+        o = [n(x) for n in self.neurons]
+        return o[0] if len(o) == 1 else o
+
+
+class MLP:
+
+    def __init__(self, nin, nouts):
+        nlist = [nin]+nouts
+        self.layers = [Layer(nlist[i], nlist[i+1])
+                       for i in range(len(nouts))]
+
+    def __call__(self, x):
+        for layer in self.layers:
+            o = layer(x)
+        return o

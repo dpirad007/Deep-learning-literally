@@ -3,9 +3,11 @@ from nn import *
 
 # neural network
 
-x = [2.0, 3.0]
-n = Layer(2, 3)
-print(n(x))
+x = [2.0, 3.0, -1.0]
+
+n = MLP(3, [4, 4, 1])
+o = n(x)
+graph(o).view()
 
 
 # simple example
